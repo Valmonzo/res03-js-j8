@@ -188,3 +188,7 @@ body main {
 .sr-only {
   display: none;
 }
+
+.hidden {
+  display:none;
+}

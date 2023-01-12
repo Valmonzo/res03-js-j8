@@ -35,7 +35,7 @@ window.addEventListener("DOMContentLoaded", function(event) {
     console.log(availableIngredient);
 
 
-    for(let i = 0; i < availableIngredient.length; i++) {
+    for (let i = 0; i < availableIngredient.length; i++) {
         let article = document.createElement("article");
         let header = document.createElement("header");
         let figure = document.createElement("figure");
@@ -49,7 +49,7 @@ window.addEventListener("DOMContentLoaded", function(event) {
         h3.textContent = availableIngredient[i].name;
         img.setAttribute("src", availableIngredient[i].file);
         img.setAttribute("alt", `image d'une ${availableIngredient[i].name}`);
-        article.setAttribute("name", availableIngredient[i].name);
+        article.setAttribute("data-name", availableIngredient[i].name);
         figure.appendChild(img);
         header.appendChild(figure);
         header.appendChild(h3);
@@ -59,32 +59,44 @@ window.addEventListener("DOMContentLoaded", function(event) {
 
     }
 
-    let allArticle = document.querySelectorAll("#stage article") ;
+    let allArticle = document.querySelectorAll("#stage article");
     console.log(allArticle);
     let newPizza = null;
 
-    for(let i = 0; i < allArticle.length; i++) {
+    for (let i = 0; i < allArticle.length; i++) {
 
-        allArticle[i].addEventListener("click", function(e){
+        allArticle[i].addEventListener("click", function(e) {
             allArticle[i].classList.toggle("selected");
-            
 
-            if(newPizza === null) {
-                newPizza = new Pizza()
 
-                if(allArticle[i].classList.contains("selected")) {
-                    newPizza.addIngredient();
-                }
-
-                else {
-                    newPizza.removeIngredient();
-                }
+            if (newPizza === null) {
+                newPizza = new Pizza();
             }
+            let ingName = allArticle[i].getAttribute("data-name");
 
 
-        })
+                if (ingName === availableIngredient[i].name && allArticle[i].classList.contains("selected")) {
+                        newPizza.addIngredient(availableIngredient[i]);
+                        newPizza.display();
+                }
+                else {
+                    newPizza.removeIngredient(availableIngredient[i]);
+                    newPizza.display();
+                }
+
+
+
+
+
+        });
+
     }
-
+    
+    let order = document.querySelector("aside ul li:last-of-type");
+    
+    order.addEventListener("click", function(e){
+        
+    });
 
 
 
