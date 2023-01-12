@@ -60,7 +60,6 @@ window.addEventListener("DOMContentLoaded", function(event) {
     }
 
     let allArticle = document.querySelectorAll("#stage article");
-    console.log(allArticle);
     let newPizza = null;
 
     for (let i = 0; i < allArticle.length; i++) {
@@ -75,14 +74,14 @@ window.addEventListener("DOMContentLoaded", function(event) {
             let ingName = allArticle[i].getAttribute("data-name");
 
 
-                if (ingName === availableIngredient[i].name && allArticle[i].classList.contains("selected")) {
-                        newPizza.addIngredient(availableIngredient[i]);
-                        newPizza.display();
-                }
-                else {
-                    newPizza.removeIngredient(availableIngredient[i]);
-                    newPizza.display();
-                }
+            if (ingName === availableIngredient[i].name && allArticle[i].classList.contains("selected")) {
+                newPizza.addIngredient(availableIngredient[i]);
+                newPizza.display();
+            }
+            else {
+                newPizza.removeIngredient(availableIngredient[i]);
+                newPizza.display();
+            }
 
 
 
@@ -91,11 +90,22 @@ window.addEventListener("DOMContentLoaded", function(event) {
         });
 
     }
-    
+
     let order = document.querySelector("aside ul li:last-of-type");
-    
-    order.addEventListener("click", function(e){
-        
+
+    order.addEventListener("click", function(e) {
+        let clearIngredients = document.querySelectorAll("aside ul li:not(:last-of-type)");
+        for (let i = 0; i < clearIngredients.length; i++) {
+            clearIngredients[i].innerHTML = "";
+            newPizza.removeIngredient(availableIngredient[i])
+        }
+        for (let i = 0; i < allArticle.length; i++) {
+            if(allArticle[i].classList.contains("selected")) {
+                allArticle[i].classList.remove("selected")
+            }
+        }
+        newPizza.cook();
+        newPizza.cooked();
     });
 
 

@@ -1,5 +1,5 @@
-class Pizza {#
-    ingredients;
+class Pizza {
+    #ingredients;
 
     constructor() {
         this.#ingredients = [];
@@ -62,16 +62,18 @@ class Pizza {#
 
     cook() {
 
-
-
         setTimeout(function() {
-            this.cooked();
+            let pizzaReady = document.querySelector("aside section");
+            pizzaReady.classList.remove("hidden");
         }, this.#ingredients.length * 1000)
     }
 
     cooked() {
-        let pizzaReady = document.querySelector("aside section");
-        pizzaReady.classList.toggle("hidden");
+        setTimeout(function() {
+            let pizzaReady = document.querySelector("aside section");
+            pizzaReady.classList.add("hidden");
+        }, (this.#ingredients.length * 100) + 5000)
+
     }
 }
 
